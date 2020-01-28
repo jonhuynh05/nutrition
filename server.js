@@ -9,7 +9,7 @@ const fetch = require("node-fetch")
 const PORT = process.env.PORT || 8000
 const key = process.env.API_KEY
 const bcrypt = require("bcryptjs");
-console.log(key, "this is the key")
+const User = require("./models/Users")
 
 require("./config/db")
 
@@ -22,6 +22,8 @@ app.use(session({
 app.use(methodOverride("_method"));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
+// app.use("/user", userController)
+
 
 app.listen(PORT, () => {
     console.log(`Running on PORT ${PORT}.`)
