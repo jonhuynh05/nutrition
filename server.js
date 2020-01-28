@@ -28,10 +28,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get("/api/v1/", async (req, res) => {
     try{
         console.log("this hits")
-        res.send("this is the backend")
+        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/item?nix_item_id=513fc9e73fe3ffd40300109f`,
+            {
+                "headers": {
+                    "x-app-id": id,
+                    "x-app-key": key
+                }
+            }
+        )
+        const dataJson = await data.json()
+        console.log(dataJson, "this is backend data")
+        res.json("this is the backend")
     }
     catch(err){
-        res.send(err)
+        res.json(err)
         console.log(err)
     }
 })
