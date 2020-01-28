@@ -7,7 +7,7 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 const fetch = require("node-fetch")
 const PORT = process.env.PORT || 8000
-const key = process.env.LOL_API_KEY
+const key = process.env.API_KEY
 const bcrypt = require("bcryptjs");
 console.log(key, "this is the key")
 
