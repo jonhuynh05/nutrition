@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get("/api/v1/", async (req, res) => {
     try{
         console.log("this hits")
-        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/item?nix_item_id=513fc9e73fe3ffd40300109f`,
+        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=grilled cheese`,
             {
                 "headers": {
                     "x-app-id": id,
@@ -37,7 +37,11 @@ app.get("/api/v1/", async (req, res) => {
             }
         )
         const dataJson = await data.json()
-        console.log(dataJson, "this is backend data")
+        let foodNames = []
+        for (let i = 0; i < dataJson.common.length; i++) {
+            foodNames.push(dataJson.common[i].food_name)
+        }
+        console.log(foodNames, "this is backend data")
         res.json("this is the backend")
     }
     catch(err){
