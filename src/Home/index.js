@@ -7,10 +7,9 @@ class Home extends Component{
         query: ""
     }
 
-    async componentDidMount (){
-        console.log("this is mounted")
-        const backend = await(await fetch("/api/v1/")).json()
-        console.log(backend, "got it from the back")
+    getData = async (e) => {
+        const dataQuery = await(await fetch(`/api/v1/${this.state.query}`)).json()
+        console.log(dataQuery, "data from back")
     }
 
     handleChange = (e) => {
@@ -19,12 +18,15 @@ class Home extends Component{
         })
     }
 
+    handleSubmit = () => {
+        this.getData()
+    }
 
     render(){
         return(
             <div>
                 this is the home
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <input placeholder="Search Food" type="text" name="query" value={this.state.query} onChange={this.handleChange}/>
                     <button type="submit">Search</button>
                 </form>

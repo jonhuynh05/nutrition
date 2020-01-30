@@ -25,10 +25,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 // app.use("/user", userController)
 
-app.get("/api/v1/", async (req, res) => {
+app.get("/api/v1/:query", async (req, res) => {
     try{
-        console.log("this hits")
-        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=grilled cheese`,
+        console.log(req.params.query, "this is the query")
+        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${req.params.query}`,
             {
                 "headers": {
                     "x-app-id": id,
