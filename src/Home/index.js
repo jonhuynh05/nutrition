@@ -7,7 +7,8 @@ class Home extends Component{
         query: ""
     }
 
-    getData = async (e) => {
+    getData = async () => {
+        console.log("this hits")
         const dataQuery = await(await fetch(`/api/v1/${this.state.query}`)).json()
         console.log(dataQuery, "data from back")
     }
@@ -18,7 +19,8 @@ class Home extends Component{
         })
     }
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault()
         this.getData()
     }
 

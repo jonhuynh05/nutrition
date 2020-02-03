@@ -42,7 +42,7 @@ app.get("/api/v1/:query", async (req, res) => {
             foodNames.push(dataJson.common[i].food_name)
         }
         console.log(foodNames, "this is backend data")
-        res.json(foodNames)
+        res.send(foodNames)
     }
     catch(err){
         res.json(err)
