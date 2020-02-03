@@ -36,19 +36,21 @@ app.get("/api/v1/:query", async (req, res) => {
                 }
             }
         )
-        const dataJson = await data.json()
-        console.log(dataJson)
-        console.log (dataJson.common[0], "this is the first result")
-        // let foodNames = []
-        // for (let i = 0; i < dataJson.common.length; i++) {
-        //     foodNames.push(dataJson.common[i].food_name)
-        // }
-        // console.log(foodNames, "this is backend data")
-        if(dataJson.common.length === 0){
+        const searchResults = await data.json()
+        console.log(searchResults)
+        console.log (searchResults.common[0], "this is the first result")
+        let searchDropdownNames = []
+        for (let i = 0; i < searchResults.common.length; i++) {
+            searchDropdownNames.push(searchResults.common[i].food_name)
+        }
+        console.log(searchResults, "this is backend data")
+        if(searchResults.common.length === 0){
             res.json("No results.")
         }
         else{
-            res.json(dataJson.common[0])
+            res.json({
+                results: searchResults.common[0], dropdown: searchDropdownNames
+            })
         }
     }
     catch(err){

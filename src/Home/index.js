@@ -8,6 +8,7 @@ class Home extends Component{
         foodName: "",
         foodId: "",
         foodImg: "",
+        dropdown: [],
         error: ""
     }
 
@@ -15,7 +16,8 @@ class Home extends Component{
         console.log("this hits")
         this.setState({
             error: "",
-            foodImg: ""
+            foodImg: "",
+            dropdown: []
         })
         const dataQuery = await(await fetch(`/api/v1/${this.state.query}`)).json()
         console.log(dataQuery, "data from back")
@@ -26,9 +28,10 @@ class Home extends Component{
         }
         else{
             this.setState({
-                foodName: dataQuery.food_name,
-                foodId: dataQuery.tag_id,
-                foodImg: dataQuery.photo.thumb
+                foodName: dataQuery.results.food_name,
+                foodId: dataQuery.results.tag_id,
+                foodImg: dataQuery.results.photo.thumb,
+                dropdown: dataQuery.dropdown
             })
         }
     }
