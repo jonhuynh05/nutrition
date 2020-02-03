@@ -37,12 +37,19 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const dataJson = await data.json()
-        let foodNames = []
-        for (let i = 0; i < dataJson.common.length; i++) {
-            foodNames.push(dataJson.common[i].food_name)
+        console.log(dataJson)
+        console.log (dataJson.common[0], "this is the first result")
+        // let foodNames = []
+        // for (let i = 0; i < dataJson.common.length; i++) {
+        //     foodNames.push(dataJson.common[i].food_name)
+        // }
+        // console.log(foodNames, "this is backend data")
+        if(dataJson.common.length === 0){
+            res.json("No results.")
         }
-        console.log(foodNames, "this is backend data")
-        res.send(foodNames)
+        else{
+            res.json(dataJson.common[0])
+        }
     }
     catch(err){
         res.json(err)
