@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter} from "react-router-dom"
+import {withRouter, Link} from "react-router-dom"
 import "./home.css"
 
 class Home extends Component{
@@ -79,7 +79,7 @@ class Home extends Component{
             this.state.dropdown.map((query, i) => {
                 return(
                     <div key={i} className="search-option">
-                        {query}
+                        <Link to={`/${query}`}>{query}</Link>
                     </div>
                 )
             })
