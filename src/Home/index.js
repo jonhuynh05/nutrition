@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {withRouter} from "react-router-dom"
+import "./home.css"
 
 class Home extends Component{
 
@@ -55,6 +56,14 @@ class Home extends Component{
                 error: dataQuery
             })
         }
+        else if (this.state.query === ""){
+            this.setState({
+                foodName: "",
+                foodId: "",
+                foodImg: "",
+                dropdown: []
+            })
+        }
         else{
             this.setState({
                 foodName: dataQuery.results.food_name,
@@ -76,7 +85,6 @@ class Home extends Component{
             })
         return(
             <div>
-                this is the home
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="Search Food" type="text" name="query" value={this.state.query} onChange={this.handleChange}/>
                     <button type="submit">Search</button>
@@ -93,13 +101,13 @@ class Home extends Component{
                         No results. Please try again.
                     </div>
                 }
-                {
+                {/* {
                     this.state.foodImg === ""
                     ?
                     null
                     :
                     <img src={this.state.foodImg}/>
-                }
+                } */}
             </div>
         )
     }
