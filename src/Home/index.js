@@ -79,7 +79,7 @@ class Home extends Component{
             this.state.dropdown.map((query, i) => {
                 return(
                     <div key={i} className="search-option">
-                        <Link to={`/${query}`}>{query}</Link>
+                        <Link className="search-links" to={`/${query}`}>{query}</Link>
                     </div>
                 )
             })

@@ -1,3 +1,8 @@
-.search-option:hover{
+.search-links:hover{
     color: red
+}
+
+.search-links{
+    text-decoration: none;
+    color: black
 }
