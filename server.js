@@ -40,16 +40,18 @@ app.get("/api/v1/:query", async (req, res) => {
         console.log(searchResults)
         console.log (searchResults.common[0], "this is the first result")
         let searchDropdownNames = []
-        for (let i = 0; i < searchResults.common.length; i++) {
-            searchDropdownNames.push(searchResults.common[i].food_name)
+        let searchDropdownIds = []
+        for (let i = 0; i < searchResults.branded.length; i++) {
+            searchDropdownNames.push(searchResults.branded[i].food_name)
+            searchDropdownIds.push(searchResults.branded[i].nix_item_id)
         }
         console.log(searchResults, "this is backend data")
-        if(searchResults.common.length === 0){
+        if(searchResults.branded.length === 0){
             res.json("No results.")
         }
         else{
             res.json({
-                results: searchResults.common[0], dropdown: searchDropdownNames
+                results: searchResults.branded[0], dropdown: searchDropdownNames, ids: searchDropdownIds
             })
         }
     }
@@ -62,6 +64,16 @@ app.get("/api/v1/:query", async (req, res) => {
 app.get("/api/v1/search/:item", async (req, res) => {
     try{
         console.log("item search hit")
+        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/item?nix_item_id=51c3ec2b97c3e6de73cba8c3`,
+            {
+                "headers": {
+                    "x-app-id": id,
+                    "x-app-key": key
+                }
+            }
+        )
+        const dataJson = await data.json()
+        console.log(dataJson, "this is the data")
     }
     catch(err){
         res.json(err)
