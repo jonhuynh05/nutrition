@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/api/v1/:query", async (req, res) => {
     try{
-        console.log(req.params.query, "this is the query")
         const data = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${req.params.query}`,
             {
                 "headers": {
@@ -37,15 +36,12 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const searchResults = await data.json()
-        console.log(searchResults)
-        console.log (searchResults.common[0], "this is the first result")
         let searchDropdownNames = []
         let searchDropdownIds = []
         for (let i = 0; i < searchResults.branded.length; i++) {
             searchDropdownNames.push(searchResults.branded[i].food_name)
             searchDropdownIds.push(searchResults.branded[i].nix_item_id)
         }
-        console.log(searchResults, "this is backend data")
         if(searchResults.branded.length === 0){
             res.json("No results.")
         }
@@ -63,8 +59,7 @@ app.get("/api/v1/:query", async (req, res) => {
 
 app.get("/api/v1/search/:item", async (req, res) => {
     try{
-        console.log("item search hit")
-        const data = await fetch(`https://trackapi.nutritionix.com/v2/search/item?nix_item_id=51c3ec2b97c3e6de73cba8c3`,
+        const query = await fetch(`https://trackapi.nutritionix.com/v2/search/instant?query=${req.params.item}`,
             {
                 "headers": {
                     "x-app-id": id,
@@ -72,8 +67,17 @@ app.get("/api/v1/search/:item", async (req, res) => {
                 }
             }
         )
-        const dataJson = await data.json()
-        console.log(dataJson, "this is the data")
+        const queryJson = await query.json()
+        const food = await fetch(`https://trackapi.nutritionix.com/v2/search/item?nix_item_id=${queryJson.branded[0].nix_item_id}`,
+            {
+                "headers": {
+                    "x-app-id": id,
+                    "x-app-key": key
+                }
+            }
+        )
+        const foodJson = await food.json()
+        res.json(foodJson)
     }
     catch(err){
         res.json(err)
