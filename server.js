@@ -59,6 +59,16 @@ app.get("/api/v1/:query", async (req, res) => {
     }
 })
 
+app.get("/api/v1/search/:item", async (req, res) => {
+    try{
+        console.log("item search hit")
+    }
+    catch(err){
+        res.json(err)
+        console.log(err)
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Running on PORT ${PORT}.`)
 })

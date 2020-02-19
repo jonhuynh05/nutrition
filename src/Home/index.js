@@ -3,7 +3,7 @@ import {withRouter, Link} from "react-router-dom"
 import "./home.css"
 
 class Home extends Component{
-
+    
     render(){
         const dropdown =
             this.props.dropdown.map((query, i) => {
