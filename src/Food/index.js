@@ -12,7 +12,8 @@ class Food extends Component {
         sodium: "",
         sugar: "",
         cholesterol: "",
-        carbs: ""
+        carbs: "",
+        image: ""
     }
 
 
@@ -29,7 +30,8 @@ class Food extends Component {
             sodium: item.foods[0].nf_sodium,
             sugar: item.foods[0].nf_sugars,
             cholesterol: item.foods[0].nf_cholesterol,
-            carbs: item.foods[0].nf_total_carbohydrate
+            carbs: item.foods[0].nf_total_carbohydrate,
+            image: item.foods[0].photo.thumb
         })
     }
 
@@ -39,6 +41,7 @@ class Food extends Component {
                 this is the query page<br/>
                 {/* {this.props.match.params.query} */}
                 {this.state.food}<br/>
+                <img src={this.state.image}/><br/>
                 Brand: {this.state.brand}<br/>
                 Servings: {this.state.servings}<br/>
                 Calories: {this.state.calories}<br/>
