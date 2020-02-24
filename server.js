@@ -36,10 +36,11 @@ app.get("/api/v1/:query", async (req, res) => {
             }
         )
         const searchResults = await data.json()
+        console.log(searchResults, "this is the search results")
         let searchDropdownNames = []
         let searchDropdownIds = []
         for (let i = 0; i < searchResults.branded.length; i++) {
-            searchDropdownNames.push(searchResults.branded[i].food_name)
+            searchDropdownNames.push(searchResults.branded[i].brand_name_item_name)
             searchDropdownIds.push(searchResults.branded[i].nix_item_id)
         }
         if(searchResults.branded.length === 0){
