@@ -3,6 +3,7 @@ import {Switch, Route, withRouter} from "react-router-dom"
 import Home from "./Home"
 import Food from "./Food"
 import Profile from "./Profile"
+import Register from "./Register"
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
       foodId: "",
       foodImg: "",
       dropdown: [],
-      error: ""
+      error: "",
+      isLoggedIn: false
   }
 
   getData = async () => {
@@ -80,9 +82,10 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults}/>}/>
-          <Route exact path="/search/:query" render={() =><Food/>}/>
-          <Route exact path="/profile" render={() => <Profile/>}/>
+          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn}/>}/>
+          <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
+          <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
+          <Route exact path="/register" render={() => <Register/>}/>
         </Switch>
       </div>
     );

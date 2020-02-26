@@ -15,6 +15,13 @@ class Home extends Component{
             })
         return(
             <div>
+                {
+                    this.props.isLoggedIn
+                    ?
+                    null
+                    :
+                    <Link to="/register">Register</Link>
+                }
                 <h1>Login</h1>
                 <form>
                     <input placeholder="username"></input>
