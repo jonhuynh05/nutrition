@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Switch, Route, withRouter} from "react-router-dom"
 import Home from "./Home"
 import Food from "./Food"
+import Login from "./Login"
 
 
 class App extends Component {
@@ -80,7 +81,8 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults}/>}/>
-          <Route exact path="/:query" render={() =><Food/>}/>
+          <Route exact path="/search/:query" render={() =><Food/>}/>
+          <Route exact path="/login" render={() => <Login/>}/>
         </Switch>
       </div>
     );

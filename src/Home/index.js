@@ -9,12 +9,13 @@ class Home extends Component{
             this.props.dropdown.map((query, i) => {
                 return(
                     <div key={i} className="search-option">
-                        <Link className="search-links" to={`/${query}`}>{query}</Link>
+                        <Link className="search-links" to={`/search/${query}`}>{query}</Link>
                     </div>
                 )
             })
         return(
             <div>
+                <Link to="/login">Login</Link>
                 <form onSubmit={this.props.handleSubmit}>
                     <input placeholder="Search Food" type="text" name="query" value={this.props.query} onChange={this.props.handleChange}/>
                     <button type="submit">Search</button>
