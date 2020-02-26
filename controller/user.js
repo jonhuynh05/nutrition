@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs")
 router.post("/register", async (req, res) => {
     try{
         console.log("this hits")
+        console.log(req.body, "this is the controller")
     }
     catch(err){
         res.send(err)

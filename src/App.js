@@ -81,7 +81,7 @@ class App extends Component {
   handleRegister = async (e) => {
     try{
       e.preventDefault()
-      await fetch(`/register`, {
+      await fetch(`/user/register`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(this.state),
@@ -89,6 +89,7 @@ class App extends Component {
           "Content-Type": "application/json"
         }
       })
+      console.log("register")
     }
     catch(err){
       console.log(err)
