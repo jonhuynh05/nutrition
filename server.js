@@ -11,6 +11,7 @@ const id = process.env.API_ID
 const key = process.env.API_KEY
 const bcrypt = require("bcryptjs");
 const User = require("./models/Users")
+const userController = require("./controller/user")
 
 require("./config/db")
 
@@ -23,7 +24,7 @@ app.use(session({
 app.use(methodOverride("_method"));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use("/user", userController)
+app.use("/user", userController)
 
 app.get("/api/v1/:query", async (req, res) => {
     try{
