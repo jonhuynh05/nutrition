@@ -78,6 +78,23 @@ class App extends Component {
       }
   }
 
+  handleRegister = async (e) => {
+    try{
+      e.preventDefault()
+      await fetch(`/register`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(this.state),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
   render(){
     return (
       <div>
@@ -85,7 +102,7 @@ class App extends Component {
           <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
-          <Route exact path="/register" render={() => <Register/>}/>
+          <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister}/>}/>
         </Switch>
       </div>
     );
