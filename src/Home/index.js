@@ -15,7 +15,13 @@ class Home extends Component{
             })
         return(
             <div>
-                <Link to="/login">Login</Link>
+                <h1>Login</h1>
+                <form>
+                    <input placeholder="username"></input>
+                    <input placeholder="password"></input>
+                    <button type="submit">Login</button>
+                </form>
+                <br/>
                 <form onSubmit={this.props.handleSubmit}>
                     <input placeholder="Search Food" type="text" name="query" value={this.props.query} onChange={this.props.handleChange}/>
                     <button type="submit">Search</button>
@@ -32,13 +38,6 @@ class Home extends Component{
                         No results. Please try again.
                     </div>
                 }
-                {/* {
-                    this.state.foodImg === ""
-                    ?
-                    null
-                    :
-                    <img src={this.state.foodImg}/>
-                } */}
             </div>
         )
     }
