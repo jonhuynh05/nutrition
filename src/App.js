@@ -101,7 +101,10 @@ class App extends Component {
           "Content-Type": "application/json"
         }
       })
-      console.log("register")
+        .then(async res => {
+          const response = await res.json()
+          console.log(response)
+        })
     }
     catch(err){
       console.log(err)

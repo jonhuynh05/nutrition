@@ -8,9 +8,17 @@ router.post("/register", async (req, res) => {
         const foundEmail = await User.findOne({
             email: req.body.email
         })
+        const foundUsername = await User.findOne({
+            username: req.body.username
+        })
         if(foundEmail){
             res.json({
                 message: "Email already exists."
+            })
+        }
+        else if (foundUsername) {
+            res.json({
+                message: "Username already exists."
             })
         }
         else{
@@ -22,7 +30,16 @@ router.post("/register", async (req, res) => {
             userDbEntry.username = req.body.username
             userDbEntry.email = req.body.email
             userDbEntry.password = hashPassword
-            console.log(userDbEntry)
+            const newUser = await User.create(userDbEntry)
+            req.session.firstName = newUser.firstName
+            req.session.email = newUser.email
+            req.session.username = newUser.username
+            res.json({
+                firstName: req.session.firstName,
+                email: req.session.email,
+                username: req.session.username,
+                message: "Success."
+            })
         }
     }
     catch(err){
