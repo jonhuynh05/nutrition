@@ -14,7 +14,12 @@ class App extends Component {
       foodImg: "",
       dropdown: [],
       error: "",
-      isLoggedIn: false
+      isLoggedIn: false,
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: ""
   }
 
   getData = async () => {
@@ -38,6 +43,13 @@ class App extends Component {
               dropdown: dataQuery.dropdown
           })
       }
+  }
+
+
+  handleRegisterChange = (e) => {
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    })
   }
 
   handleChange = (e) => {
@@ -103,7 +115,7 @@ class App extends Component {
           <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
-          <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister}/>}/>
+          <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister} handleRegisterChange={this.handleRegisterChange} firstName={this.state.firstName} lastName={this.state.lastName} username={this.state.username} email={this.state.email} password={this.state.password}/>}/>
         </Switch>
       </div>
     );
