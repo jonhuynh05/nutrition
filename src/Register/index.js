@@ -15,6 +15,13 @@ class Register extends Component{
                     <input placeholder="password" onChange={this.props.handleRegisterChange} name="password"></input>
                     <button type="submit" onClick={this.props.handleRegister}>Register</button>
                 </form>
+                {
+                    this.props.registerMessage === ""
+                    ?
+                    null
+                    :
+                    this.props.registerMessage
+                }
             </div>
         )
     }

@@ -19,7 +19,8 @@ class App extends Component {
       lastName: "",
       username: "",
       email: "",
-      password: ""
+      password: "",
+      registerMessage: ""
   }
 
   getData = async () => {
@@ -104,6 +105,21 @@ class App extends Component {
         .then(async res => {
           const response = await res.json()
           console.log(response)
+          if(response.message === "Email already exists."){
+            this.setState({
+              registerMessage: response.message
+            })
+          }
+          else if(response.message === "Username already exists."){
+            this.setState({
+              registerMessage: response.message
+            })
+          }
+          else{
+            this.setState({
+              registerMessage: ""
+            })
+          }
         })
     }
     catch(err){
@@ -118,7 +134,7 @@ class App extends Component {
           <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
-          <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister} handleRegisterChange={this.handleRegisterChange} firstName={this.state.firstName} lastName={this.state.lastName} username={this.state.username} email={this.state.email} password={this.state.password}/>}/>
+          <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister} handleRegisterChange={this.handleRegisterChange} firstName={this.state.firstName} lastName={this.state.lastName} username={this.state.username} email={this.state.email} password={this.state.password} registerMessage={this.state.registerMessage}/>}/>
         </Switch>
       </div>
     );
