@@ -46,13 +46,6 @@ class App extends Component {
       }
   }
 
-
-  handleRegisterChange = (e) => {
-    this.setState({
-      [e.currentTarget.name]: e.currentTarget.value
-    })
-  }
-
   handleChange = (e) => {
       this.setState({
           [e.currentTarget.name]: e.currentTarget.value
@@ -89,6 +82,30 @@ class App extends Component {
               dropdown: dataQuery.dropdown
           })
       }
+  }
+
+  handleLogin = async (e) => {
+    try{
+      e.preventDefault()
+      console.log("abc")
+      await fetch (`/user/login`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(this.state),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  handleRegisterChange = (e) => {
+    this.setState({
+      [e.currentTarget.name]: e.currentTarget.value
+    })
   }
 
   handleRegister = async (e) => {
@@ -131,7 +148,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn}/>}/>
+          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} handleLoginChange={this.handleRegisterChange} email={this.state.email} password={this.state.password}/>}/>
           <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister} handleRegisterChange={this.handleRegisterChange} firstName={this.state.firstName} lastName={this.state.lastName} username={this.state.username} email={this.state.email} password={this.state.password} registerMessage={this.state.registerMessage}/>}/>

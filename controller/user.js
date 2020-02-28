@@ -3,6 +3,17 @@ const router = express.Router()
 const User = require("../models/Users")
 const bcrypt = require("bcryptjs")
 
+router.post("/login", async (req, res) => {
+    try{
+        console.log("this hits")
+        console.log(req.body, "login body")
+    }
+    catch(err){
+        res.send(err)
+        console.log(err)
+    }
+})
+
 router.post("/register", async (req, res) => {
     try{
         const foundEmail = await User.findOne({

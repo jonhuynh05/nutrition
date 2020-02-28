@@ -24,9 +24,9 @@ class Home extends Component{
                 }
                 <h1>Login</h1>
                 <form>
-                    <input placeholder="username"></input>
-                    <input placeholder="password"></input>
-                    <button type="submit">Login</button>
+                    <input placeholder="username" onChange={this.props.handleLoginChange} name="username"></input>
+                    <input placeholder="password" onChange={this.props.handleLoginChange} name="password"></input>
+                    <button type="submit" onClick={this.props.handleLogin}>Login</button>
                 </form>
                 <br/>
                 <form onSubmit={this.props.handleSubmit}>
