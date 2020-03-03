@@ -20,7 +20,8 @@ class App extends Component {
       username: "",
       email: "",
       password: "",
-      registerMessage: ""
+      registerMessage: "",
+      loginMessage: ""
   }
 
   getData = async () => {
@@ -96,6 +97,22 @@ class App extends Component {
           "Content-Type": "application/json"
         }
       })
+        .then(async res => {
+          const response = await res.json()
+          if(response.firstName){
+            this.setState({
+              firstName: response.firstName,
+              username: response.username,
+              isLoggedIn: true
+            })
+          }
+          else{
+            this.setState({
+              loginMessage: response.message
+            })
+          }
+          console.log(response)
+        })
     }
     catch(err){
       console.log(err)
@@ -134,7 +151,9 @@ class App extends Component {
           }
           else{
             this.setState({
-              registerMessage: ""
+              registerMessage: "",
+              password: "",
+              email: ""
             })
           }
         })
@@ -148,7 +167,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} handleLoginChange={this.handleRegisterChange} email={this.state.email} password={this.state.password}/>}/>
+          <Route exact path="/" render={() =><Home dropdown={this.state.dropdown} error={this.state.error} query={this.state.query} getData={this.getData} handleChange={this.handleChange} handleSubmit={this.handleSubmit} handleSearchResults={this.handleSearchResults} isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} handleLoginChange={this.handleRegisterChange} email={this.state.email} password={this.state.password} loginMessage={this.state.loginMessage}/>}/>
           <Route exact path="/search/:query" render={() =><Food isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/profile" render={() => <Profile isLoggedIn={this.state.isLoggedIn}/>}/>
           <Route exact path="/register" render={() => <Register handleRegister={this.handleRegister} handleRegisterChange={this.handleRegisterChange} firstName={this.state.firstName} lastName={this.state.lastName} username={this.state.username} email={this.state.email} password={this.state.password} registerMessage={this.state.registerMessage}/>}/>

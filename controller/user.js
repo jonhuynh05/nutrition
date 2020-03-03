@@ -5,8 +5,26 @@ const bcrypt = require("bcryptjs")
 
 router.post("/login", async (req, res) => {
     try{
-        console.log("this hits")
         console.log(req.body, "login body")
+        const foundUsername = await User.findOne({
+            username: req.body.username
+        })
+        if(foundUsername){
+            if(bcrypt.compareSync(req.body.password, foundUsername.password)){
+                req.session.firstName = foundUsername.firstName
+                req.session.username = foundUsername.username
+                res.json({
+                    firstName: req.session.firstName,
+                    username: req.session.username,
+                    message: "Login successful."
+                })
+            }
+        }
+        else{
+            res.json({
+                message: "Username does not exist."
+            })
+        }
     }
     catch(err){
         res.send(err)
